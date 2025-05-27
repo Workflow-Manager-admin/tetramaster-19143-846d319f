@@ -387,7 +387,7 @@ function TetraMaster({ theme }) {
       minHeight: "100vh",
       minWidth: "100vw",
       boxSizing: "border-box",
-      background: COLORS.accent,
+      background: palette.accent,
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -406,9 +406,9 @@ function TetraMaster({ theme }) {
       marginBottom: 14
     },
     board: {
-      background: COLORS.primary,
-      border: `3px solid ${COLORS.secondary}`,
-      boxShadow: `0 1.5px 12px 0 ${COLORS.secondary}19`,
+      background: palette.primary,
+      border: `3px solid ${palette.secondary}`,
+      boxShadow: `0 1.5px 12px 0 ${palette.shadow}`,
       borderRadius: 7,
       display: "grid",
       gridTemplateRows: `repeat(${ROWS}, ${BLOCK_SIZE}px)`,
@@ -417,9 +417,9 @@ function TetraMaster({ theme }) {
     },
     sidebar: {
       minWidth: 120, // reduced
-      background: COLORS.secondary,
+      background: palette.sidebar || palette.secondary,
       borderRadius: 8,
-      color: COLORS.accent,
+      color: palette.text,
       padding: 10,
       marginLeft: 4,
       display: "flex",
@@ -429,7 +429,7 @@ function TetraMaster({ theme }) {
       alignItems: "center"
     },
     nextBlockArea: {
-      background: COLORS.primary,
+      background: palette.primary,
       borderRadius: 4,
       padding: 4,
       marginBottom: 5,
@@ -454,8 +454,8 @@ function TetraMaster({ theme }) {
       fontSize: 16
     },
     btn: {
-      background: COLORS.primary,
-      color: COLORS.accent,
+      background: palette.primary,
+      color: palette.accent,
       border: "2px solid #c9ada7",
       padding: "4px 10px",
       borderRadius: 6,
@@ -478,10 +478,11 @@ function TetraMaster({ theme }) {
         fontWeight: 700,
         fontSize: 23,
         letterSpacing: 0.5,
-        textShadow: `2px 2px 0 ${COLORS.secondary}44`
+        color: palette.text,
+        textShadow: `2px 2px 0 ${palette.secondary}44`
       }}>
-        <span style={{ color: COLORS.primary }}>Tetra</span>
-        <span style={{ color: COLORS.secondary }}>Master</span>
+        <span style={{ color: palette.primary }}>Tetra</span>
+        <span style={{ color: palette.secondary }}>Master</span>
       </div>
       {/* Main area */}
       <div style={styles.gameArea}>
@@ -501,11 +502,13 @@ function TetraMaster({ theme }) {
                   margin: 1,
                   borderRadius: 3,
                   background: cell
-                    ? COLORS.blockColors[cell % COLORS.blockColors.length]
-                    : "rgba(255,255,255,0.06)",
-                  border: cell ? `2.2px solid ${COLORS.accent}` : undefined,
+                    ? palette.blocks[cell % palette.blocks.length]
+                    : (theme === "dark" 
+                        ? "rgba(200,200,220,0.08)"
+                        : "rgba(50,50,107,0.058)"),
+                  border: cell ? `2.2px solid ${palette.accent}` : undefined,
                   boxShadow: cell
-                    ? `0 1px 4px 0 #091c2e44`
+                    ? `0 1px 4px 0 ${palette.shadow || "#091c2e44"}`
                     : undefined,
                   transition: "background .15s"
                 }}
@@ -515,7 +518,7 @@ function TetraMaster({ theme }) {
         </div>
         {/* Sidebar */}
         <aside style={styles.sidebar}>
-          <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 1, letterSpacing: "0.02em" }}>
+          <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 1, letterSpacing: "0.02em", color: palette.secondary }}>
             Next
           </div>
           {/* Next block preview */}
@@ -537,9 +540,9 @@ function TetraMaster({ theme }) {
                       margin: 0.7,
                       borderRadius: 2,
                       background: cell
-                        ? COLORS.blockColors[cell % COLORS.blockColors.length]
+                        ? palette.blocks[cell % palette.blocks.length]
                         : "transparent",
-                      border: cell ? `1.3px solid ${COLORS.primary}` : undefined,
+                      border: cell ? `1.3px solid ${palette.primary}` : undefined,
                       transition: "background .12s"
                     }}
                   />
@@ -549,15 +552,15 @@ function TetraMaster({ theme }) {
           </div>
           <div style={{ fontSize: 13, marginBottom: 2 }}>
             <b>Score</b>
-            <div style={{ fontSize: 16, fontWeight: 700, color: "#F2E9E4", minHeight: 18 }}>{score}</div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: palette.text, minHeight: 18 }}>{score}</div>
           </div>
           <div style={{ fontSize: 13, marginBottom: 2 }}>
             <b>Level</b>
-            <div style={{ fontSize: 13, fontWeight: 500, color: "#F2E9E4", minHeight: 16 }}>{level + 1}</div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: palette.text, minHeight: 16 }}>{level + 1}</div>
           </div>
           <div style={{ fontSize: 13, marginBottom: 2 }}>
             <b>Lines</b>
-            <div style={{ fontSize: 13, fontWeight: 500, color: "#F2E9E4", minHeight: 16 }}>{linesTotal}</div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: palette.text, minHeight: 16 }}>{linesTotal}</div>
           </div>
           {gameOver &&
             <div style={styles.gameOver}>
@@ -573,7 +576,7 @@ function TetraMaster({ theme }) {
       <div style={styles.controlsArea}>
         <div style={{
           textAlign: "center",
-          color: COLORS.primary,
+          color: palette.primary,
           fontWeight: 500,
           fontSize: 13.5,
           marginBottom: 2
@@ -585,7 +588,7 @@ function TetraMaster({ theme }) {
           gap: 7,
           flexWrap: "wrap",
           justifyContent: "center",
-          color: "#4a4e69"
+          color: palette.secondary
         }}>
           {KEY_HELP.map(({ key, action }) => (
             <div key={action}
@@ -597,16 +600,16 @@ function TetraMaster({ theme }) {
                 gap: 2
               }}>
               <span style={{
-                border: `1.3px solid ${COLORS.secondary}`,
+                border: `1.3px solid ${palette.secondary}`,
                 borderRadius: 2,
-                background: "#fff",
-                color: COLORS.primary,
+                background: (theme === "dark" ? "#27223a" : "#fff"),
+                color: palette.primary,
                 padding: "1px 6px",
                 display: "inline-block",
                 fontWeight: 700,
                 marginRight: 2,
                 fontSize: 12.5,
-                boxShadow: "0 1px 2.2px rgba(34,34,59,0.07)"
+                boxShadow: theme === "dark" ? undefined : "0 1px 2.2px rgba(34,34,59,0.07)"
               }}>
                 {key}
               </span>
@@ -615,7 +618,7 @@ function TetraMaster({ theme }) {
           ))}
         </div>
       </div>
-      <div style={{ margin: 5, color: COLORS.secondary, fontSize: 11 }}>
+      <div style={{ margin: 5, color: palette.secondary, fontSize: 11 }}>
         Classic Tetris implementation &copy; {new Date().getFullYear()}
       </div>
     </div>

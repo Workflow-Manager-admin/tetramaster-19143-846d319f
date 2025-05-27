@@ -175,3 +175,18 @@ src/TetraMaster.js
 Search for the keywords to learn more about each error.
 
 webpack compiled with 1 error and 1 warning
+Compiling...
+Compiled with warnings.
+
+[eslint] 
+src/TetraMaster.js
+  Line 233:6:  React Hook useCallback has a missing dependency: 'lockPiece'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+WARNING in [eslint] 
+src/TetraMaster.js
+  Line 233:6:  React Hook useCallback has a missing dependency: 'lockPiece'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+webpack compiled with 1 warning
