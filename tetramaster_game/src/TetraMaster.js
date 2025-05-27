@@ -1,42 +1,27 @@
 import React, { useEffect, useRef, useCallback, useState } from "react";
 
-// Helper to fetch color from CSS vars
-function getPaletteFromCSSVars() {
-  const css = getComputedStyle(document.body);
-  return {
-    primary: css.getPropertyValue('--kavia-primary').trim() || "#22223b",
-    secondary: css.getPropertyValue('--kavia-secondary').trim() || "#4a4e69",
-    accent: css.getPropertyValue('--kavia-light-bg').trim() || "#f2e9e4",
-    sidebar: css.getPropertyValue('--sidebar-bg').trim() || "#f9f6fb",
-    text: css.getPropertyValue('--text-color').trim() || "#22223b",
-    textSecondary: css.getPropertyValue('--text-secondary').trim() || "rgba(40,40,70,0.6)",
-    card: css.getPropertyValue('--card-bg').trim() || "#fff",
-    border: css.getPropertyValue('--border-color').trim() || "rgba(60,55,90,0.13)",
-    shadow: css.getPropertyValue('--shadow').trim() || "rgba(30,29,65,0.09)",
-    blocks: [
-      css.getPropertyValue('--block-1').trim() || "#f2e9e4",
-      css.getPropertyValue('--block-2').trim() || "#e07a5f",
-      css.getPropertyValue('--block-3').trim() || "#3d405b",
-      css.getPropertyValue('--block-4').trim() || "#81b29a",
-      css.getPropertyValue('--block-5').trim() || "#f4a261",
-      css.getPropertyValue('--block-6').trim() || "#556b2f",
-      css.getPropertyValue('--block-7').trim() || "#9a8c98",
-      css.getPropertyValue('--block-8').trim() || "#4a4e69",
-    ]
-  };
-}
-
-/*
-  To make the UI more compact:
-    - Reduce BOARD block size and board area dimension
-    - Shrink sidebar padding/gaps, and fonts
-    - Reduce main title/subtitle size
-    - Make controls more compact and slightly smaller
-    - Adjust margins and gaps
-    - Ensure everything fits in ~720-800px vertical height, ~1024px width
-
-  Adjust as necessary in styles below.
-*/
+// Static palette colors for single light theme
+const PALETTE = {
+  primary: "#22223b",
+  secondary: "#4a4e69",
+  accent: "#f2e9e4",
+  sidebar: "#f9f6fb",
+  text: "#22223b",
+  textSecondary: "rgba(40,40,70,0.6)",
+  card: "#fff",
+  border: "rgba(60,55,90,0.13)",
+  shadow: "rgba(30,29,65,0.09)",
+  blocks: [
+    "#f2e9e4",
+    "#e07a5f",
+    "#3d405b",
+    "#81b29a",
+    "#f4a261",
+    "#556b2f",
+    "#9a8c98",
+    "#4a4e69"
+  ]
+};
 
 // Tetris constants (Reduced for compact UI)
 const ROWS = 20;
@@ -105,7 +90,6 @@ function rotate(shape) {
 // Generate random tetromino (returns {shape, type (color index)})
 function randomTetromino() {
   const idx = Math.floor(Math.random() * SHAPES.length);
-  // Deep copy shape
   return { shape: SHAPES[idx].map(row => [...row]), color: idx + 1, idx };
 }
 
@@ -183,11 +167,9 @@ const KEY_HELP = [
 
 /**
  * PUBLIC_INTERFACE
- * 
- * @param {Object} props 
- * @param {string} [props.theme]
+ * TetraMaster component for classic Tetris. Static light theme only, no theme prop.
  */
-function TetraMaster({ theme }) {
+function TetraMaster() {
   // Game state
   const [board, setBoard] = useState(getEmptyBoard());
   const [current, setCurrent] = useState(randomTetromino());
@@ -197,17 +179,10 @@ function TetraMaster({ theme }) {
   const [level, setLevel] = useState(0);
   const [linesTotal, setLinesTotal] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  // Theme/Palette state (update if prop changes, or when theme toggles)
-  const [palette, setPalette] = useState(getPaletteFromCSSVars());
 
   // Timing control
   const [tick, setTick] = useState(0);
   const timerRef = useRef(null);
-
-  // Sync palette with CSS vars when theme changes
-  useEffect(() => {
-    setPalette(getPaletteFromCSSVars());
-  }, [theme]);
 
   // Drop interval in ms (speeds up with level)
   const getInterval = (lvl) =>
@@ -382,6 +357,7 @@ function TetraMaster({ theme }) {
   }, []);
 
   // Styles (CSS-in-JS for clarity)
+  const palette = PALETTE;
   const styles = {
     root: {
       minHeight: "100vh",
@@ -401,8 +377,8 @@ function TetraMaster({ theme }) {
       flexDirection: "row",
       alignItems: "flex-start",
       justifyContent: "center",
-      gap: 22, // reduced
-      marginTop: 30, // was 60
+      gap: 22,
+      marginTop: 30,
       marginBottom: 14
     },
     board: {
@@ -416,15 +392,15 @@ function TetraMaster({ theme }) {
       position: "relative",
     },
     sidebar: {
-      minWidth: 120, // reduced
-      background: palette.sidebar || palette.secondary,
+      minWidth: 120,
+      background: palette.sidebar,
       borderRadius: 8,
       color: palette.text,
       padding: 10,
       marginLeft: 4,
       display: "flex",
       flexDirection: "column",
-      gap: 13, // reduced
+      gap: 13,
       fontWeight: 500,
       alignItems: "center"
     },
@@ -503,12 +479,10 @@ function TetraMaster({ theme }) {
                   borderRadius: 3,
                   background: cell
                     ? palette.blocks[cell % palette.blocks.length]
-                    : (theme === "dark" 
-                        ? "rgba(200,200,220,0.08)"
-                        : "rgba(50,50,107,0.058)"),
+                    : "rgba(50,50,107,0.058)",
                   border: cell ? `2.2px solid ${palette.accent}` : undefined,
                   boxShadow: cell
-                    ? `0 1px 4px 0 ${palette.shadow || "#091c2e44"}`
+                    ? `0 1px 4px 0 ${palette.shadow}`
                     : undefined,
                   transition: "background .15s"
                 }}
@@ -602,14 +576,14 @@ function TetraMaster({ theme }) {
               <span style={{
                 border: `1.3px solid ${palette.secondary}`,
                 borderRadius: 2,
-                background: (theme === "dark" ? "#27223a" : "#fff"),
+                background: "#fff",
                 color: palette.primary,
                 padding: "1px 6px",
                 display: "inline-block",
                 fontWeight: 700,
                 marginRight: 2,
                 fontSize: 12.5,
-                boxShadow: theme === "dark" ? undefined : "0 1px 2.2px rgba(34,34,59,0.07)"
+                boxShadow: "0 1px 2.2px rgba(34,34,59,0.07)"
               }}>
                 {key}
               </span>
