@@ -370,75 +370,78 @@ function TetraMaster() {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      justifyContent: "center",
-      fontFamily: "Inter, Roboto, Helvetica, Arial, sans-serif"
+      justifyContent: "flex-start",
+      fontFamily: "Inter, Roboto, Helvetica, Arial, sans-serif",
+      paddingTop: 10,
+      paddingBottom: 0
     },
     gameArea: {
       display: "flex",
       flexDirection: "row",
-      alignItems: "center",
+      alignItems: "flex-start",
       justifyContent: "center",
-      gap: 40,
-      marginTop: 60,
-      marginBottom: 30
+      gap: 22, // reduced
+      marginTop: 30, // was 60
+      marginBottom: 14
     },
     board: {
       background: COLORS.primary,
-      border: `4px solid ${COLORS.secondary}`,
-      boxShadow: `0 4px 24px 0 ${COLORS.secondary}22`,
-      borderRadius: 12,
+      border: `3px solid ${COLORS.secondary}`,
+      boxShadow: `0 1.5px 12px 0 ${COLORS.secondary}19`,
+      borderRadius: 7,
       display: "grid",
       gridTemplateRows: `repeat(${ROWS}, ${BLOCK_SIZE}px)`,
       gridTemplateColumns: `repeat(${COLS}, ${BLOCK_SIZE}px)`,
       position: "relative",
     },
     sidebar: {
-      minWidth: 160,
+      minWidth: 120, // reduced
       background: COLORS.secondary,
-      borderRadius: 12,
+      borderRadius: 8,
       color: COLORS.accent,
-      padding: 22,
-      marginLeft: 10,
+      padding: 10,
+      marginLeft: 4,
       display: "flex",
       flexDirection: "column",
-      gap: 24,
+      gap: 13, // reduced
       fontWeight: 500,
       alignItems: "center"
     },
     nextBlockArea: {
       background: COLORS.primary,
-      borderRadius: 7,
-      padding: 8,
-      marginBottom: 10,
+      borderRadius: 4,
+      padding: 4,
+      marginBottom: 5,
       display: "inline-block"
     },
     controlsArea: {
       margin: "0 auto",
-      marginTop: 28,
+      marginTop: 11,
       display: "flex",
       flexDirection: "column",
-      gap: 7,
+      gap: 4,
       alignItems: "center",
+      width: "100%"
     },
     gameOver: {
-      marginTop: 8,
-      padding: 8,
+      marginTop: 6,
+      padding: 6,
       color: "#e63946",
       background: "#fff3",
       borderRadius: 4,
       fontWeight: 700,
-      fontSize: 22
+      fontSize: 16
     },
     btn: {
       background: COLORS.primary,
       color: COLORS.accent,
       border: "2px solid #c9ada7",
-      padding: "6px 16px",
+      padding: "4px 10px",
       borderRadius: 6,
       fontWeight: 600,
-      fontSize: 16,
+      fontSize: 14,
       cursor: "pointer",
-      marginTop: 12
+      marginTop: 8
     }
   };
 
@@ -450,7 +453,10 @@ function TetraMaster() {
     <div style={styles.root}>
       {/* Title/branding */}
       <div style={{
-        marginBottom: 18, fontWeight: 700, fontSize: 34, letterSpacing: 1,
+        marginBottom: 9,
+        fontWeight: 700,
+        fontSize: 23,
+        letterSpacing: 0.5,
         textShadow: `2px 2px 0 ${COLORS.secondary}44`
       }}>
         <span style={{ color: COLORS.primary }}>Tetra</span>
