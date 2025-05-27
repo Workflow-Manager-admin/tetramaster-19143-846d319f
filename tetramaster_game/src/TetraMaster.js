@@ -1,21 +1,30 @@
 import React, { useEffect, useRef, useCallback, useState } from "react";
 
-// Color palette
-const COLORS = {
-  primary: "#22223b",     // Play area
-  secondary: "#4a4e69",   // Sidebar
-  accent: "#f2e9e4",      // Highlights and blocks
-  blockColors: [
-    "#f2e9e4", // light (accent)
-    "#e07a5f", // orange-red
-    "#3d405b", // dark blue
-    "#81b29a", // green
-    "#f4a261", // orange
-    "#556b2f", // olive
-    "#9a8c98", // purple / muted
-    "#4a4e69"  // sidebar color
-  ]
-};
+// Helper to fetch color from CSS vars
+function getPaletteFromCSSVars() {
+  const css = getComputedStyle(document.body);
+  return {
+    primary: css.getPropertyValue('--kavia-primary').trim() || "#22223b",
+    secondary: css.getPropertyValue('--kavia-secondary').trim() || "#4a4e69",
+    accent: css.getPropertyValue('--kavia-light-bg').trim() || "#f2e9e4",
+    sidebar: css.getPropertyValue('--sidebar-bg').trim() || "#f9f6fb",
+    text: css.getPropertyValue('--text-color').trim() || "#22223b",
+    textSecondary: css.getPropertyValue('--text-secondary').trim() || "rgba(40,40,70,0.6)",
+    card: css.getPropertyValue('--card-bg').trim() || "#fff",
+    border: css.getPropertyValue('--border-color').trim() || "rgba(60,55,90,0.13)",
+    shadow: css.getPropertyValue('--shadow').trim() || "rgba(30,29,65,0.09)",
+    blocks: [
+      css.getPropertyValue('--block-1').trim() || "#f2e9e4",
+      css.getPropertyValue('--block-2').trim() || "#e07a5f",
+      css.getPropertyValue('--block-3').trim() || "#3d405b",
+      css.getPropertyValue('--block-4').trim() || "#81b29a",
+      css.getPropertyValue('--block-5').trim() || "#f4a261",
+      css.getPropertyValue('--block-6').trim() || "#556b2f",
+      css.getPropertyValue('--block-7').trim() || "#9a8c98",
+      css.getPropertyValue('--block-8').trim() || "#4a4e69",
+    ]
+  };
+}
 
 /*
   To make the UI more compact:
