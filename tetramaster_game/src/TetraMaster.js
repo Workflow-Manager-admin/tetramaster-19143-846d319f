@@ -494,7 +494,7 @@ function TetraMaster() {
         </div>
         {/* Sidebar */}
         <aside style={styles.sidebar}>
-          <div style={{ fontWeight: 700, fontSize: "1.16em", marginBottom: 2, letterSpacing: "0.04em" }}>
+          <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 1, letterSpacing: "0.02em" }}>
             Next
           </div>
           {/* Next block preview */}
@@ -502,8 +502,8 @@ function TetraMaster() {
             <div
               style={{
                 display: "grid",
-                gridTemplateRows: `repeat(${NEXT_SIZE}, ${BLOCK_SIZE - 4}px)`,
-                gridTemplateColumns: `repeat(${NEXT_SIZE}, ${BLOCK_SIZE - 4}px)`
+                gridTemplateRows: `repeat(${NEXT_SIZE}, ${BLOCK_SIZE - 6}px)`,
+                gridTemplateColumns: `repeat(${NEXT_SIZE}, ${BLOCK_SIZE - 6}px)`
               }}
             >
               {nextGrid.map((row, y) =>
@@ -511,14 +511,14 @@ function TetraMaster() {
                   <div
                     key={`${y}-${x}`}
                     style={{
-                      width: BLOCK_SIZE - 5,
-                      height: BLOCK_SIZE - 5,
-                      margin: 1,
+                      width: BLOCK_SIZE - 7,
+                      height: BLOCK_SIZE - 7,
+                      margin: 0.7,
                       borderRadius: 2,
                       background: cell
                         ? COLORS.blockColors[cell % COLORS.blockColors.length]
                         : "transparent",
-                      border: cell ? `1.6px solid ${COLORS.primary}` : undefined,
+                      border: cell ? `1.3px solid ${COLORS.primary}` : undefined,
                       transition: "background .12s"
                     }}
                   />
@@ -526,17 +526,17 @@ function TetraMaster() {
               )}
             </div>
           </div>
-          <div>
+          <div style={{ fontSize: 13, marginBottom: 2 }}>
             <b>Score</b>
-            <div style={{ fontSize: 20, fontWeight: 700, color: "#F2E9E4" }}>{score}</div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: "#F2E9E4", minHeight: 18 }}>{score}</div>
           </div>
-          <div>
+          <div style={{ fontSize: 13, marginBottom: 2 }}>
             <b>Level</b>
-            <div style={{ fontSize: 15, fontWeight: 500, color: "#F2E9E4" }}>{level + 1}</div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: "#F2E9E4", minHeight: 16 }}>{level + 1}</div>
           </div>
-          <div>
+          <div style={{ fontSize: 13, marginBottom: 2 }}>
             <b>Lines</b>
-            <div style={{ fontSize: 15, fontWeight: 500, color: "#F2E9E4" }}>{linesTotal}</div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: "#F2E9E4", minHeight: 16 }}>{linesTotal}</div>
           </div>
           {gameOver &&
             <div style={styles.gameOver}>
@@ -554,47 +554,47 @@ function TetraMaster() {
           textAlign: "center",
           color: COLORS.primary,
           fontWeight: 500,
-          fontSize: 17,
-          marginBottom: 6
+          fontSize: 13.5,
+          marginBottom: 2
         }}>
           Controls
         </div>
         <div style={{
           display: "flex",
-          gap: 12,
+          gap: 7,
           flexWrap: "wrap",
           justifyContent: "center",
-          color: "#4a4e69",
+          color: "#4a4e69"
         }}>
           {KEY_HELP.map(({ key, action }) => (
             <div key={action}
               style={{
-                minWidth: 80,
+                minWidth: 66,
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                gap: 5
+                gap: 2
               }}>
               <span style={{
-                border: `2px solid ${COLORS.secondary}`,
-                borderRadius: 3,
+                border: `1.3px solid ${COLORS.secondary}`,
+                borderRadius: 2,
                 background: "#fff",
                 color: COLORS.primary,
-                padding: "2px 9px",
+                padding: "1px 6px",
                 display: "inline-block",
                 fontWeight: 700,
-                marginRight: 3,
-                fontSize: 15.5,
-                boxShadow: "0 1.5px 4px rgba(34,34,59,0.08)"
+                marginRight: 2,
+                fontSize: 12.5,
+                boxShadow: "0 1px 2.2px rgba(34,34,59,0.07)"
               }}>
                 {key}
               </span>
-              <span style={{ fontSize: 14 }}>{action}</span>
+              <span style={{ fontSize: 10.5 }}>{action}</span>
             </div>
           ))}
         </div>
       </div>
-      <div style={{ margin: 16, color: COLORS.secondary, fontSize: 15 }}>
+      <div style={{ margin: 5, color: COLORS.secondary, fontSize: 11 }}>
         Classic Tetris implementation &copy; {new Date().getFullYear()}
       </div>
     </div>
