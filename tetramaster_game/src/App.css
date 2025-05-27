@@ -1,15 +1,55 @@
 :root {
+  /* Light theme palette */
   --kavia-orange: #E87A41;
   --kavia-dark: #1A1A1A;
+  --kavia-light-bg: #f2e9e4;
+  --kavia-primary: #22223b;
+  --kavia-secondary: #4a4e69;
+  --text-color: #22223b;
+  --text-secondary: rgba(40, 45, 70, 0.65);
+  --border-color: rgba(60, 55, 90, 0.13);
+  --sidebar-bg: #f9f6fb;
+  --card-bg: #ffffff;
+  --shadow: rgba(30,29,65,0.08);
+
+  /* Block colors */
+  --block-1: #f2e9e4;
+  --block-2: #e07a5f;
+  --block-3: #3d405b;
+  --block-4: #81b29a;
+  --block-5: #f4a261;
+  --block-6: #556b2f;
+  --block-7: #9a8c98;
+  --block-8: #4a4e69;
+}
+
+[data-theme="dark"], .theme-dark {
+  --kavia-orange: #E87A41;
+  --kavia-dark: #17141B;
+  --kavia-light-bg: #1C1920;
+  --kavia-primary: #22223b;
+  --kavia-secondary: #4a4e69;
   --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
+  --text-secondary: rgba(255,255,255,0.66);
+  --border-color: rgba(255,255,255, 0.13);
+  --sidebar-bg: #292742;
+  --card-bg: #201d27;
+  --shadow: rgba(44,41,80, 0.12);
+
+  --block-1: #2b2735;
+  --block-2: #e07a5f;
+  --block-3: #554c7a;
+  --block-4: #569981;
+  --block-5: #c78a44;
+  --block-6: #4b6050;
+  --block-7: #837a8d;
+  --block-8: #53465a;
 }
 
 body {
   margin: 0;
   font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  background-color: var(--kavia-dark);
+  background-color: var(--kavia-light-bg);
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
