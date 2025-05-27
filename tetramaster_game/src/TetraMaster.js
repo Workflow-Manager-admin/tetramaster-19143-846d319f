@@ -17,10 +17,22 @@ const COLORS = {
   ]
 };
 
-// Tetris constants
+/*
+  To make the UI more compact:
+    - Reduce BOARD block size and board area dimension
+    - Shrink sidebar padding/gaps, and fonts
+    - Reduce main title/subtitle size
+    - Make controls more compact and slightly smaller
+    - Adjust margins and gaps
+    - Ensure everything fits in ~720-800px vertical height, ~1024px width
+
+  Adjust as necessary in styles below.
+*/
+
+// Tetris constants (Reduced for compact UI)
 const ROWS = 20;
 const COLS = 10;
-const BLOCK_SIZE = 28; // px
+const BLOCK_SIZE = 21; // px, was 28
 const NEXT_SIZE = 4;
 
 // Block definitions (classic 7)
