@@ -181,8 +181,13 @@ const KEY_HELP = [
   { key: "R", action: "Restart" },
 ];
 
-// PUBLIC_INTERFACE
-function TetraMaster() {
+/**
+ * PUBLIC_INTERFACE
+ * 
+ * @param {Object} props 
+ * @param {string} [props.theme]
+ */
+function TetraMaster({ theme }) {
   // Game state
   const [board, setBoard] = useState(getEmptyBoard());
   const [current, setCurrent] = useState(randomTetromino());
@@ -192,10 +197,17 @@ function TetraMaster() {
   const [level, setLevel] = useState(0);
   const [linesTotal, setLinesTotal] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  // Theme/Palette state (update if prop changes, or when theme toggles)
+  const [palette, setPalette] = useState(getPaletteFromCSSVars());
 
   // Timing control
   const [tick, setTick] = useState(0);
   const timerRef = useRef(null);
+
+  // Sync palette with CSS vars when theme changes
+  useEffect(() => {
+    setPalette(getPaletteFromCSSVars());
+  }, [theme]);
 
   // Drop interval in ms (speeds up with level)
   const getInterval = (lvl) =>
